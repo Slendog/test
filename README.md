@@ -27,7 +27,7 @@ is built from the info hash plus public trackers.
 Paste into **Settings → Extensions → Repositories**:
 
 ```
-https://gitlab.com/slendog/test/-/raw/main/hayase/index.json
+https://raw.githubusercontent.com/Slendog/test/main/hayase/index.json
 ```
 
 ### Shiru
@@ -35,13 +35,12 @@ https://gitlab.com/slendog/test/-/raw/main/hayase/index.json
 Paste into **Settings → Extensions → Sources**:
 
 ```
-https://gitlab.com/slendog/test/-/raw/main/shiru/index.json
+https://raw.githubusercontent.com/Slendog/test/main/shiru/index.json
 ```
 
-> Enable **Adult Content (Hentai)** in settings to use Sukebei.
+Alternatively (Shiru): `gh:Slendog/test/shiru`
 
-> **CORS note:** GitLab raw does not send `Access-Control-Allow-Origin`. If Hayase fails to
-> load the extension code, host the repo on GitHub (raw.githubusercontent sends `*`) instead.
+> Enable **Adult Content (Hentai)** in settings to use Sukebei.
 
 ---
 

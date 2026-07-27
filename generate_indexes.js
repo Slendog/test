@@ -24,7 +24,7 @@ const sources = [
   },
 ];
 
-const REPO_BASE = "https://gitlab.com/slendog/test/-/raw/main";
+const REPO_BASE = "https://raw.githubusercontent.com/Slendog/test/main";
 
 // Shiru index
 const shiruIndex = sources.map((s) => ({
