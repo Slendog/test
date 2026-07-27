@@ -17,8 +17,8 @@
     "nsfw": false,
     "updatePeers": false,
     "icon": "https://nyaa.si/static/favicon.png",
-    "update": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/index.json",
-    "code": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/nyaa.js"
+    "update": "https://gitlab.com/slendog/test/-/raw/main/hayase/index.json",
+    "code": "https://gitlab.com/slendog/test/-/raw/main/hayase/nyaa.js"
   },
   {
     "manifestVersion": 2,
@@ -38,7 +38,7 @@
     "nsfw": true,
     "updatePeers": false,
     "icon": "https://sukebei.nyaa.si/static/favicon.png",
-    "update": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/index.json",
-    "code": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/sukebei.js"
+    "update": "https://gitlab.com/slendog/test/-/raw/main/hayase/index.json",
+    "code": "https://gitlab.com/slendog/test/-/raw/main/hayase/sukebei.js"
   }
 ]

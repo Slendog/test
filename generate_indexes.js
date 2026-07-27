@@ -24,7 +24,7 @@ const sources = [
   },
 ];
 
-const REPO_BASE = "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main";
+const REPO_BASE = "https://gitlab.com/slendog/test/-/raw/main";
 
 // Shiru index
 const shiruIndex = sources.map((s) => ({
@@ -36,7 +36,7 @@ const shiruIndex = sources.map((s) => ({
   nsfw: s.nsfw || false,
   description: `Shiru extension for ${s.name} (custom)`,
   icon: s.icon,
-  update: "gh:ReWelp/HayasexShiru-Extensions/shiru",
+  update: `${REPO_BASE}/shiru/index.json`,
 }));
 
 writeFileSync("./shiru/index.json", JSON.stringify(shiruIndex, null, 2));
