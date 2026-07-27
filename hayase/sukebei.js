@@ -40,19 +40,19 @@ export default new class Sukebei {
   base = 'https://sukebei.nyaa.si/'
   category = '0_0' // all categories
 
-  async single ({ titles, episode, resolution, exclusions }) {
+  async single ({ titles, episode, resolution, exclusions, fetch }) {
     if (!titles?.length) return []
-    return this._search({ title: titles[0], episode, resolution, exclusions, type: 'alt' })
+    return this._search({ title: titles[0], episode, resolution, exclusions, fetch })
   }
 
-  async batch ({ titles, resolution, exclusions }) {
+  async batch ({ titles, resolution, exclusions, fetch }) {
     if (!titles?.length) return []
-    return this._search({ title: `${titles[0]} batch`, resolution, exclusions, type: 'batch' })
+    return this._search({ title: `${titles[0]} batch`, resolution, exclusions, fetch, type: 'batch' })
   }
 
-  async movie ({ titles, resolution, exclusions }) {
+  async movie ({ titles, resolution, exclusions, fetch }) {
     if (!titles?.length) return []
-    return this._search({ title: titles[0], resolution, exclusions, type: 'best' })
+    return this._search({ title: titles[0], resolution, exclusions, fetch })
   }
 
   _query ({ title, episode, resolution }) {
@@ -62,10 +62,11 @@ export default new class Sukebei {
     return q
   }
 
-  async _search ({ title, episode, resolution, exclusions = [], type = 'alt' }) {
+  async _search ({ title, episode, resolution, exclusions = [], fetch: doFetch, type }) {
+    const req = doFetch || fetch
     const q = this._query({ title, episode, resolution })
     const url = `${this.base}?page=rss&q=${encodeURIComponent(q)}&c=${this.category}&f=0&s=seeders&o=desc`
-    const res = await fetch(url)
+    const res = await req(url)
     if (!res.ok) return []
     const xml = await res.text()
 
@@ -95,6 +96,7 @@ export default new class Sukebei {
 
   async test () {
     const res = await fetch(`${this.base}?page=rss&q=test`)
-    return res.ok
+    if (!res.ok) throw new Error(`Sukebei unreachable (HTTP ${res.status}). The site may be down or blocked by your ISP.`)
+    return true
   }
 }()

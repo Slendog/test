@@ -1,32 +1,42 @@
 [
   {
+    "manifestVersion": 2,
+    "deprecated": false,
     "id": "hayase.extension.nyaa",
     "name": "Nyaa",
+    "description": "Searches nyaa.si for anime torrents via its RSS feed.",
     "version": "1.1.0",
     "type": "torrent",
     "accuracy": "medium",
     "ratio": 0,
     "media": "sub",
+    "url": "aHR0cHM6Ly9ueWFhLnNp",
     "languages": [
       "all"
     ],
     "nsfw": false,
+    "updatePeers": false,
     "icon": "https://nyaa.si/static/favicon.png",
     "update": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/index.json",
     "code": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/nyaa.js"
   },
   {
+    "manifestVersion": 2,
+    "deprecated": false,
     "id": "hayase.extension.sukebei",
     "name": "Sukebei",
+    "description": "Searches sukebei.nyaa.si for adult torrents via its RSS feed.",
     "version": "1.1.0",
     "type": "torrent",
     "accuracy": "medium",
     "ratio": 0,
     "media": "both",
+    "url": "aHR0cHM6Ly9zdWtlYmVpLm55YWEuc2k=",
     "languages": [
       "all"
     ],
     "nsfw": true,
+    "updatePeers": false,
     "icon": "https://sukebei.nyaa.si/static/favicon.png",
     "update": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/index.json",
     "code": "https://raw.githubusercontent.com/ReWelp/HayasexShiru-Extensions/main/hayase/sukebei.js"

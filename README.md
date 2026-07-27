@@ -118,6 +118,21 @@ npm run generate
 
 This writes `hayase/index.json`, `shiru/index.json`, `shiru/package.json`, and root `index.json`.
 
+### Hayase manifest v2
+
+The Hayase manifest uses `manifestVersion: 2` (current schema). Key fields beyond version:
+
+- `manifestVersion: 2` — required; without it Hayase flags the extension **outdated**.
+- `description` — required in v2.
+- `url` — **base64-encoded base URL** (`https://nyaa.si` / `https://sukebei.nyaa.si`).
+  Whitelists the host so the extension's requests are CORS-enabled. Required because
+  nyaa.si sends no CORS headers.
+- `updatePeers: false` — let Hayase scrape fresh peer counts from trackers.
+
+Extension code runs in a **sandboxed Web Worker** (no DOM — hence regex XML parsing, not
+`DOMParser`). Search methods use the **`query.fetch`** passed by Hayase, not global `fetch`,
+for CORS-enabled requests.
+
 ---
 
 ## Limitations
