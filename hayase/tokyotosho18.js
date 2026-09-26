@@ -23,7 +23,8 @@ function decode (s) {
 
 function pick (block, tag) {
   const m = new RegExp(`<${tag}>([\\s\\S]*?)</${tag}>`).exec(block)
-  return m ? m[1].trim() : ''
+  if (!m) return ''
+  return m[1].replace(/^\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*$/, '$1').trim()
 }
 
 function parseSize (s) {
@@ -33,14 +34,23 @@ function parseSize (s) {
   return Math.round(parseFloat(m[1]) * (mult[m[2].toUpperCase()] || 1))
 }
 
+// Magnets on TokyoTosho carry the info hash as base32; normalise to 40-char hex.
+function hexHash (h) {
+  if (/^[0-9a-f]{40}$/i.test(h)) return h.toLowerCase()
+  if (!/^[A-Z2-7]{32}$/i.test(h)) return ''
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'
+  const bits = [...h.toUpperCase()].map(c => alphabet.indexOf(c).toString(2).padStart(5, '0')).join('')
+  return bits.match(/.{4}/g).map(b => parseInt(b, 2).toString(16)).join('')
+}
+
 function magnet (hash, title) {
   const tr = TRACKERS.map(t => `&tr=${encodeURIComponent(t)}`).join('')
   return `magnet:?xt=urn:btih:${hash}&dn=${encodeURIComponent(title)}${tr}`
 }
 
-export default new class Sukebei {
-  base = 'https://sukebei.nyaa.si/'
-  category = '0_0' // all categories
+export default new class TokyoTosho18 {
+  base = 'https://www.tokyotosho.info/'
+  filter = '4,12' // Hentai + Hentai (Anime). See README for category ids.
 
   async single ({ titles, episode, resolution, exclusions, fetch }) {
     if (!titles?.length) return []
@@ -67,7 +77,7 @@ export default new class Sukebei {
   async _search ({ title, episode, resolution, exclusions = [], fetch: doFetch, type }) {
     const req = doFetch || fetch
     const q = this._query({ title, episode, resolution })
-    const url = `${this.base}?page=rss&q=${encodeURIComponent(q)}&c=${this.category}&f=0&s=seeders&o=desc`
+    const url = `${this.base}rss.php?filter=${this.filter}&terms=${encodeURIComponent(q)}`
     const res = await req(url)
     if (!res.ok) return []
     const xml = await res.text()
@@ -78,27 +88,29 @@ export default new class Sukebei {
       const name = decode(pick(item, 'title'))
       if (!name) continue
       if (exclusions.some(e => name.toLowerCase().includes(e.toLowerCase()))) continue
-      const hash = pick(item, 'nyaa:infoHash').toLowerCase()
+      const desc = pick(item, 'description')
+      const orig = decode((/href="(magnet:[^"]+)"/.exec(desc) || [])[1])
+      const hash = hexHash((/btih:([a-z0-9]+)/i.exec(orig) || [])[1] || '')
       if (!hash) continue
       out.push({
         title: name,
-        link: magnet(hash, name),
+        link: magnet(hash, name) + (orig.match(/&tr=[^&]+/g) || []).join(''), // keep the uploader's own trackers
         hash,
-        seeders: Number(pick(item, 'nyaa:seeders') || 0),
-        leechers: Number(pick(item, 'nyaa:leechers') || 0),
-        downloads: Number(pick(item, 'nyaa:downloads') || 0),
-        size: parseSize(pick(item, 'nyaa:size')),
+        seeders: 0, // not exposed by TokyoTosho
+        leechers: 0,
+        downloads: 0,
+        size: parseSize((/Size:\s*([\d.]+\s*[KMGT]?i?B)/i.exec(desc) || [])[1]),
         date: new Date(pick(item, 'pubDate')),
-        accuracy: 'medium',
-        type
+        accuracy: 'low',
+        type: type || (pick(item, 'category') === 'Batch' ? 'batch' : undefined)
       })
     }
     return out
   }
 
   async test () {
-    const res = await fetch(`${this.base}?page=rss&q=test`)
-    if (!res.ok) throw new Error(`Sukebei unreachable (HTTP ${res.status}). The site may be down or blocked by your ISP.`)
+    const res = await fetch(`${this.base}rss.php?filter=${this.filter}&terms=one+piece`)
+    if (!res.ok) throw new Error(`TokyoTosho 18+ unreachable (HTTP ${res.status}). The site may be down or blocked by your ISP.`)
     return true
   }
 }()

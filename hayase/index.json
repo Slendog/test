@@ -5,7 +5,7 @@
     "id": "hayase.extension.nyaa",
     "name": "Nyaa",
     "description": "Searches nyaa.si for anime torrents via its RSS feed.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "type": "torrent",
     "accuracy": "medium",
     "ratio": 0,
@@ -26,7 +26,7 @@
     "id": "hayase.extension.sukebei",
     "name": "Sukebei",
     "description": "Searches sukebei.nyaa.si for adult torrents via its RSS feed.",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "type": "torrent",
     "accuracy": "medium",
     "ratio": 0,
@@ -40,5 +40,68 @@
     "icon": "https://sukebei.nyaa.si/static/favicon.png",
     "update": "https://raw.githubusercontent.com/Slendog/test/main/hayase/index.json",
     "code": "https://raw.githubusercontent.com/Slendog/test/main/hayase/sukebei.js"
+  },
+  {
+    "manifestVersion": 2,
+    "deprecated": false,
+    "id": "hayase.extension.animetosho",
+    "name": "AnimeTosho",
+    "description": "Searches AnimeTosho's JSON feed (mirrors Nyaa, TokyoTosho, AniDex). Matches by AniDB episode/anime id when available.",
+    "version": "1.0.0",
+    "type": "torrent",
+    "accuracy": "high",
+    "ratio": 0,
+    "media": "sub",
+    "url": "aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ub3Jn",
+    "languages": [
+      "all"
+    ],
+    "nsfw": false,
+    "updatePeers": false,
+    "icon": "https://animetosho.org/inc/favicon.ico",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/hayase/index.json",
+    "code": "https://raw.githubusercontent.com/Slendog/test/main/hayase/animetosho.js"
+  },
+  {
+    "manifestVersion": 2,
+    "deprecated": false,
+    "id": "hayase.extension.tokyotosho",
+    "name": "TokyoTosho",
+    "description": "Searches tokyotosho.info (Anime + Batch categories) via its RSS feed. No seeder counts.",
+    "version": "1.0.0",
+    "type": "torrent",
+    "accuracy": "low",
+    "ratio": 0,
+    "media": "sub",
+    "url": "aHR0cHM6Ly93d3cudG9reW90b3Noby5pbmZv",
+    "languages": [
+      "all"
+    ],
+    "nsfw": false,
+    "updatePeers": false,
+    "icon": "https://www.tokyotosho.info/favicon.ico",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/hayase/index.json",
+    "code": "https://raw.githubusercontent.com/Slendog/test/main/hayase/tokyotosho.js"
+  },
+  {
+    "manifestVersion": 2,
+    "deprecated": false,
+    "id": "hayase.extension.tokyotosho18",
+    "name": "TokyoTosho 18+",
+    "description": "Searches tokyotosho.info (Hentai + Hentai (Anime) categories) via its RSS feed. No seeder counts.",
+    "version": "1.0.0",
+    "type": "torrent",
+    "accuracy": "low",
+    "ratio": 0,
+    "media": "both",
+    "url": "aHR0cHM6Ly93d3cudG9reW90b3Noby5pbmZv",
+    "languages": [
+      "all"
+    ],
+    "nsfw": true,
+    "updatePeers": false,
+    "icon": "https://www.tokyotosho.info/favicon.ico",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/hayase/index.json",
+    "code": "https://raw.githubusercontent.com/Slendog/test/main/hayase/tokyotosho18.js"
   }
 ]

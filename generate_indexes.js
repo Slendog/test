@@ -9,7 +9,8 @@ const sources = [
     type: "torrent",
     // base64("https://nyaa.si") — enables CORS for the source
     url: "aHR0cHM6Ly9ueWFhLnNp",
-    version: "1.1.0"
+    media: "sub",
+    version: "1.1.1"
   },
   {
     id: "sukebei",
@@ -20,7 +21,45 @@ const sources = [
     nsfw: true,
     // base64("https://sukebei.nyaa.si")
     url: "aHR0cHM6Ly9zdWtlYmVpLm55YWEuc2k=",
-    version: "1.1.0"
+    media: "both",
+    version: "1.1.1"
+  },
+  {
+    id: "animetosho",
+    name: "AnimeTosho",
+    description: "Searches AnimeTosho's JSON feed (mirrors Nyaa, TokyoTosho, AniDex). Matches by AniDB episode/anime id when available.",
+    icon: "https://animetosho.org/inc/favicon.ico",
+    type: "torrent",
+    accuracy: "high",
+    // base64("https://feed.animetosho.org")
+    url: "aHR0cHM6Ly9mZWVkLmFuaW1ldG9zaG8ub3Jn",
+    media: "sub",
+    version: "1.0.0"
+  },
+  {
+    id: "tokyotosho",
+    name: "TokyoTosho",
+    description: "Searches tokyotosho.info (Anime + Batch categories) via its RSS feed. No seeder counts.",
+    icon: "https://www.tokyotosho.info/favicon.ico",
+    type: "torrent",
+    accuracy: "low",
+    // base64("https://www.tokyotosho.info")
+    url: "aHR0cHM6Ly93d3cudG9reW90b3Noby5pbmZv",
+    media: "sub",
+    version: "1.0.0"
+  },
+  {
+    id: "tokyotosho18",
+    name: "TokyoTosho 18+",
+    description: "Searches tokyotosho.info (Hentai + Hentai (Anime) categories) via its RSS feed. No seeder counts.",
+    icon: "https://www.tokyotosho.info/favicon.ico",
+    type: "torrent",
+    nsfw: true,
+    accuracy: "low",
+    // base64("https://www.tokyotosho.info")
+    url: "aHR0cHM6Ly93d3cudG9reW90b3Noby5pbmZv",
+    media: "both",
+    version: "1.0.0"
   },
 ];
 
@@ -44,7 +83,7 @@ writeFileSync("./shiru/index.json", JSON.stringify(shiruIndex, null, 2));
 // Shiru package
 const shiruPackage = {
   "name": "@rewelp/shiru-extensions",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Nyaa and Sukebei extensions for Shiru",
   "license": "GPLv3",
   "main": "index.json",
@@ -62,9 +101,9 @@ const hayaseIndex = sources.map((s) => ({
   description: s.description,
   version: s.version,
   type: s.type,
-  accuracy: "medium",
+  accuracy: s.accuracy || "medium",
   ratio: 0,
-  media: s.id === "sukebei" ? "both" : "sub",
+  media: s.media,
   url: s.url,
   languages: ["all"],
   nsfw: s.nsfw || false,
@@ -79,7 +118,7 @@ writeFileSync("./hayase/index.json", JSON.stringify(hayaseIndex, null, 2));
 // Root index
 const rootIndex = [
   {
-    "main": "gh:ReWelp/HayasexShiru-Extensions/shiru"
+    "main": "gh:Slendog/test/shiru"
   }
 ];
 

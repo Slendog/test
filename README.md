@@ -1,7 +1,7 @@
 # HayasexShiru Extensions
 
 Community-maintained torrent-source extensions for **Hayase** and **Shiru**.
-Includes **Nyaa** and **Sukebei** support.
+Includes **Nyaa**, **Sukebei**, **AnimeTosho** and **TokyoTosho** support.
 
 [![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
@@ -13,10 +13,22 @@ Includes **Nyaa** and **Sukebei** support.
 |--------|------|------|-------|
 | **Nyaa** | `nyaa.si` | no | sub |
 | **Sukebei** | `sukebei.nyaa.si` | yes | both |
+| **AnimeTosho** | `feed.animetosho.org` | no | sub |
+| **TokyoTosho** | `www.tokyotosho.info` | no | sub |
+| **TokyoTosho 18+** | `www.tokyotosho.info` | yes | both |
 
-Both query the site's **native RSS feed directly** — no third-party proxy. Results include
-title, info hash, seeders, leechers, downloads, real file size, and upload date. A magnet link
-is built from the info hash plus public trackers.
+Every source queries the site's **own feed directly** — no third-party proxy.
+
+- **Nyaa / Sukebei** — RSS. Title, info hash, seeders, leechers, downloads, size, upload date.
+- **AnimeTosho** — JSON API. Aggregates Nyaa, TokyoTosho, AniDex and nekoBT. Searches by
+  AniDB episode id (`anidbEid`) or anime id (`anidbAid`) when the app provides them, which gives
+  `high` accuracy; otherwise falls back to a title search. Batches require at least
+  `episodeCount` files.
+- **TokyoTosho** — RSS. No seeder, leecher or download counts (reported as `0`), so results
+  are marked `low` accuracy. The uploader's own trackers are kept in the magnet link.
+
+Magnet links are built from the info hash plus a shared list of public trackers
+(Nyaa's `nyaa.tracker.wf` first).
 
 ---
 
@@ -65,6 +77,15 @@ Category is set per source in the class (`category` field):
 | `1_0` | Nyaa — all Anime |
 | `0_0` | all categories (Sukebei default) |
 
+TokyoTosho uses a comma-separated `filter` field instead:
+
+| Value | Meaning |
+|-------|---------|
+| `1` / `11` | Anime / Batch (TokyoTosho default: `1,11`) |
+| `7` / `10` | Raws / Non-English |
+| `4` / `12` | Hentai / Hentai (Anime) (TokyoTosho 18+ default: `4,12`) |
+| `13` / `14` / `15` | Hentai (Manga) / Hentai (Games) / JAV |
+
 ### Result shape (`shiru/sources/index.d.ts`)
 
 ```ts
@@ -94,7 +115,10 @@ interface TorrentResult {
 ├─ hayase/
 │  ├─ index.json           # generated
 │  ├─ nyaa.js
-│  └─ sukebei.js
+│  ├─ sukebei.js
+│  ├─ animetosho.js
+│  ├─ tokyotosho.js
+│  └─ tokyotosho18.js
 └─ shiru/
    ├─ index.json           # generated
    ├─ package.json         # generated
@@ -102,6 +126,9 @@ interface TorrentResult {
       ├─ abstract.js
       ├─ index.d.ts
       ├─ nyaasrc/index.js
+      ├─ animetoshosrc/index.js
+      ├─ tokyotoshosrc/index.js
+      ├─ tokyotosho18src/index.js
       └─ sukebeisrc/index.js
 ```
 

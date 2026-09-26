@@ -6,12 +6,14 @@ import AbstractSource from '../abstract.js'
  */
 
 const TRACKERS = [
-  'udp://open.stealth.si:80/announce',
+  'http://nyaa.tracker.wf:7777/announce',
   'udp://tracker.opentrackr.org:1337/announce',
+  'udp://open.stealth.si:80/announce',
+  'udp://open.demonii.com:1337/announce',
   'udp://exodus.desync.com:6969/announce',
   'udp://tracker.torrent.eu.org:451/announce',
-  'udp://tracker.coppersurfer.tk:6969/announce',
-  'udp://9.rarbg.to:2710/announce'
+  'udp://explodie.org:6969/announce',
+  'udp://tracker.qu.ax:6969/announce'
 ]
 
 function decode (s) {

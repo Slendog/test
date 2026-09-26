@@ -2,7 +2,7 @@
   {
     "id": "nyaasrc",
     "name": "Nyaa SRC",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "main": "sources/nyaasrc",
     "type": "torrent",
     "nsfw": false,
@@ -13,12 +13,45 @@
   {
     "id": "sukebeisrc",
     "name": "Sukebei SRC",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "main": "sources/sukebeisrc",
     "type": "torrent",
     "nsfw": true,
     "description": "Shiru extension for Sukebei (custom)",
     "icon": "https://sukebei.nyaa.si/static/favicon.png",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/shiru/index.json"
+  },
+  {
+    "id": "animetoshosrc",
+    "name": "AnimeTosho SRC",
+    "version": "1.0.0",
+    "main": "sources/animetoshosrc",
+    "type": "torrent",
+    "nsfw": false,
+    "description": "Shiru extension for AnimeTosho (custom)",
+    "icon": "https://animetosho.org/inc/favicon.ico",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/shiru/index.json"
+  },
+  {
+    "id": "tokyotoshosrc",
+    "name": "TokyoTosho SRC",
+    "version": "1.0.0",
+    "main": "sources/tokyotoshosrc",
+    "type": "torrent",
+    "nsfw": false,
+    "description": "Shiru extension for TokyoTosho (custom)",
+    "icon": "https://www.tokyotosho.info/favicon.ico",
+    "update": "https://raw.githubusercontent.com/Slendog/test/main/shiru/index.json"
+  },
+  {
+    "id": "tokyotosho18src",
+    "name": "TokyoTosho 18+ SRC",
+    "version": "1.0.0",
+    "main": "sources/tokyotosho18src",
+    "type": "torrent",
+    "nsfw": true,
+    "description": "Shiru extension for TokyoTosho 18+ (custom)",
+    "icon": "https://www.tokyotosho.info/favicon.ico",
     "update": "https://raw.githubusercontent.com/Slendog/test/main/shiru/index.json"
   }
 ]
